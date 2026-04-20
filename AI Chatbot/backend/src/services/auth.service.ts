@@ -27,8 +27,8 @@ export const register = async (
     userId: user.id as string,
   });
 
-  console.log("Access Token = ", accessToken);
-  console.log("Refersh Token = ", refreshToken);
+  // console.log("Access Token = ", accessToken);
+  // console.log("Refersh Token = ", refreshToken);
   return {
     user: { id: user.id, username: user.username, email: user.email },
     accessToken,

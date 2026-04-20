@@ -1,19 +1,21 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 export const connectDB = async (): Promise<void> => {
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://antigravity-mongo:27017/chatbot';
-    await mongoose.connect(mongoUri, {
-      user: process.env.MONGO_USER,
-      pass: process.env.MONGO_PASS,
-      authSource: 'admin'
-    });
-    console.log('✅ MongoDB connected successfully');
+    const mongoUri = process.env.MONGODB_URI;
+    if (!mongoUri) throw new Error("MONGODB_URI is missing");
+    // await mongoose.connect(mongoUri, {
+    //   user: process.env.MONGO_USER,
+    //   pass: process.env.MONGO_PASS,
+    //   authSource: 'admin'
+    // });
+    await mongoose.connect(mongoUri);
+    console.log("✅ MongoDB connected successfully");
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+    console.error("❌ MongoDB connection error:", error);
     process.exit(1);
   }
 };
