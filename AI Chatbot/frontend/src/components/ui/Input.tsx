@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, forwardRef } from 'react';
 import { FormError } from './FormError';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

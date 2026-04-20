@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { v4 as uuidv4 } from 'uuid';
+import { create } from "zustand";
+import { v4 as uuidv4 } from "uuid";
 
 interface SessionState {
   sessionId: string;
@@ -7,13 +7,17 @@ interface SessionState {
 }
 
 export const useSessionStore = create<SessionState>((set) => ({
-  sessionId: '',
+  sessionId: "",
+
   initSession: () => {
-    let storedSession = localStorage.getItem('antigravity_session_id');
+    let storedSession: string =
+    localStorage.getItem("antigravity_session_id") || "";
+
     if (!storedSession) {
       storedSession = uuidv4();
-      localStorage.setItem('antigravity_session_id', storedSession);
+      localStorage.setItem("antigravity_session_id", storedSession);
     }
+
     set({ sessionId: storedSession });
-  }
+  },
 }));

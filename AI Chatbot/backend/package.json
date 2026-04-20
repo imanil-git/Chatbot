@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@langchain/community": "^0.3.0",
-    "@langchain/core": "^0.3.0",
-    "@langchain/openai": "^0.3.0",
+    "@langchain/core": "^0.3.80",
+    "@langchain/openai": "^0.3.17",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
