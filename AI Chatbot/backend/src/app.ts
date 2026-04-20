@@ -1,8 +1,5 @@
 import dotenv from "dotenv";
-import path from "path";
-dotenv.config({
-  path: path.resolve(__dirname, "../../.env"),
-});
+dotenv.config();
 
 import express from "express";
 import cors from "cors";
@@ -14,7 +11,7 @@ import { errorMiddleware } from "./middleware/error.middleware";
 
 const app = express();
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -24,7 +21,6 @@ app.use("/api/chat", chatRoutes);
 app.get("/api/health", (_req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
-
 
 app.use(errorMiddleware);
 

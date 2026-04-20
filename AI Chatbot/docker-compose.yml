@@ -24,7 +24,7 @@ services:
     container_name: antigravity-backend
     restart: unless-stopped
     env_file:
-      - .env
+      - ./backend/.env
     depends_on:
       mongo:
         condition: service_healthy
@@ -37,10 +37,10 @@ services:
     container_name: antigravity-mongo
     restart: unless-stopped
     command: ["mongod", "--quiet"]
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
-      MONGO_INITDB_DATABASE: antigravity
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+    #   MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    #   MONGO_INITDB_DATABASE: antigravity
     volumes:
       - mongo_data:/data/db
     ports:
