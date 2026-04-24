@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ChatWindow } from '../features/chat';
 import { useSession } from '../features/session';
-import { useAuthStore, useLogout } from '../features/auth';
+import { useAuthStore } from '../store/auth.store';
+import { useLogout } from '../hooks/useLogout';
 
 export const ChatPage: React.FC = () => {
   // Initialize session globally when accessing the chat expressly

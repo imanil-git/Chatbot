@@ -16,6 +16,9 @@ export const useAuthStore = create<AuthState>()(
     {
       name: 'auth-storage',
       storage: createJSONStorage(() => sessionStorage),
+      // SECURITY: Notice we ONLY persist 'user' and 'isAuthenticated'. 
+      // The 'accessToken' only lives in active JS memory (cleared on hard reload).
+      // The 'refreshToken' is NEVER in JS memory; it lives securely in the browser's httpOnly cookie vault.
       partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
     }
   )
