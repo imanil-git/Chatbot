@@ -13,7 +13,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     res.cookie("refreshToken", data.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in ms
     });
 
@@ -39,7 +39,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     res.cookie("refreshToken", data.refreshToken, {
       httpOnly: true, // Crucial: JS cannot read this!
       secure: process.env.NODE_ENV === "production", // Must be true in production (HTTPS)
-      sameSite: "strict", // Protects against CSRF attacks
+      // sameSite: "strict", // Protects against CSRF attacks
+      sameSite: "lax", // Protects against CSRF attacks but less than strict
       maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days in ms
     });
     
@@ -68,7 +69,7 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     res.cookie("refreshToken", data.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
     
@@ -84,6 +85,7 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
   try {
     console.log("[AUTH][LOGOUT] User requesting logout. Clearing cookies...");
     // SECURITY FIX: ONLY accept refresh tokens from the httpOnly cookie
+    console.log("Cookies: ", req.cookies)
     const refreshToken = req.cookies?.refreshToken;
     if (refreshToken) {
       await authService.logout(refreshToken);
