@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthStore } from '../features/auth';
+import { useAuthStore } from '../store/auth.store';
 
 export const PublicRoute: React.FC = () => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);

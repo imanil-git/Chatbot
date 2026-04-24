@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
-import { Input } from '../../../components/ui/Input';
-import { Button } from '../../../components/ui/Button';
-import { useRegister } from '../hooks/useRegister';
+import { Input } from '../ui/Input';
+import { Button } from '../ui/Button';
+import { useRegister } from '../../hooks/useRegister';
 
 const registerFormSchema = z.object({
   username: z.string().min(3, "Min 3 characters").max(30)

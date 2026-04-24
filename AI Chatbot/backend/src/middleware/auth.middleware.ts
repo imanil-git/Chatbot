@@ -19,6 +19,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log("[AUTH][API] 🔴 Request denied: No valid authorization header");
       return next(new AppError('No token provided', 401, 'UNAUTHORIZED'));
     }
 
@@ -27,9 +28,13 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
     const user = await User.findById(payload.userId);
     if (!user) {
+      console.log("[AUTH][API] 🔴 Request denied: User not found in DB");
       return next(new AppError('User not found', 401, 'UNAUTHORIZED'));
     }
 
+    console.log(`[AUTH][API] 🟢 Access granted. User: ${user.email} | Route: ${req.originalUrl}`);
+    
+    // Attach the user to the request so controllers can easily access `req.user`
     req.user = {
       id: user.id as string,
       username: user.username,
@@ -38,6 +43,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
     next();
   } catch (err) {
+    console.log(`[AUTH][API] 🔴 Request denied for ${req.originalUrl}: Invalid or expired token`);
     next(err);
   }
 };
